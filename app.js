@@ -41,14 +41,27 @@ function myPlayer(g) {
 
 function computer() {    
     disable();
+    document.getElementById('turn').innerText = "Computer Playing!"
+    for(let btn of document.querySelectorAll('.btn')){
+        btn.disabled = true;
+    }
     level++;
-    $('h1').html('Level ' + level);
+    $('#level-title').html('Level ' + level);
     game.push(getRandomBtn());
     for(let i=0; i<game.length; i++){
         setTimeout(function(){
-        myPlayer(game[i]);        
+            myPlayer(game[i]);
         }, 700*i);
+
     }
+    setTimeout(()=>{
+        for(let btn of document.querySelectorAll('.btn')){
+            btn.disabled = false;
+        }
+        document.getElementById('turn').innerHTML = "Your turn! <span style='font-size:3rem;'>" + game.length+"</span> move left."
+        },(game.length-1)*700+200)
+
+
 }
 
 function pressed(g){
@@ -69,6 +82,7 @@ function enable(event)
     if(event==="yes"){
         keyBoardEvent();
     }
+
 }
 
 function keyBoardEvent(){
@@ -82,12 +96,13 @@ function keyBoardEvent(){
 }
 
 function gameOver(){
-    $('h1').html('Game Over, Press Any Key to Restart');
+    $('#level-title').html('Game Over, Press Any Key to Restart');
+    $('#turn').html('You lost!');
     document.body.classList.add('game-over');    
     new Audio('sounds/wrong.mp3').play(); 
     setTimeout(() => {
         document.body.classList.remove('game-over');
-    }, 200);
+    }, 400);
     enable("no");
     
 }
@@ -97,6 +112,7 @@ $(document).on('click','div[type="button"]',function(){
     let btnId = $(this).attr('id');
     if(btnId === game[orderCount]){
         orderCount++;
+        document.getElementById('turn').innerHTML = "Your turn! <span style='font-size:3rem;'>" + (game.length-orderCount) +"</span> move left."
         pressed(btnId);
         new Audio(sounds[btnId]).play();
          if(orderCount===game.length){
