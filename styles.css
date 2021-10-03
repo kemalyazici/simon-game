@@ -9,6 +9,12 @@ body {
   margin:  5%;
   color: #FEF2BF;
 }
+#turn{
+  font-family: 'Press Start 2P', cursive;
+  font-size: 2rem;
+  margin:  5%;
+  color: #FEF2BF;
+}
 
 .container {
   display: block;
