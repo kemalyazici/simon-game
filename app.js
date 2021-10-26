@@ -58,7 +58,8 @@ function computer() {
         for(let btn of document.querySelectorAll('.btn')){
             btn.disabled = false;
         }
-        document.getElementById('turn').innerHTML = "Your turn! <span style='font-size:3rem;'>" + game.length+"</span> move left."
+        let move = game.length>1 ? "moves" : "move";
+        document.getElementById('turn').innerHTML = "Your turn! <span style='font-size:3rem;'>" + game.length+"</span> "+move+" left."
         },(game.length-1)*700+200)
 
 
@@ -112,7 +113,8 @@ $(document).on('click','div[type="button"]',function(){
     let btnId = $(this).attr('id');
     if(btnId === game[orderCount]){
         orderCount++;
-        document.getElementById('turn').innerHTML = "Your turn! <span style='font-size:3rem;'>" + (game.length-orderCount) +"</span> move left."
+        let move = (game.length-orderCount)>1 ? "moves" : "move";
+        document.getElementById('turn').innerHTML = "Your turn! <span style='font-size:3rem;'>" + (game.length-orderCount) +"</span> "+move+" left."
         pressed(btnId);
         new Audio(sounds[btnId]).play();
          if(orderCount===game.length){
